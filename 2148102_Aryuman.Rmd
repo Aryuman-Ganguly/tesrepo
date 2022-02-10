@@ -1,0 +1,94 @@
+---
+title: "2148102_R_cat2_component"
+author: "Aryuman Ganguly 2148102"
+date: "09/02/2022"
+output: word_document
+---
+
+```{r}
+## IMPORTING THE TEST DATASET
+library(readxl)
+test1 <- read_excel("C:/Users/aryum/Downloads/test1.xlsx")
+
+## 1 a
+
+## ploting a scatter plot to see the relationshi between the variables
+plot(test1$y,test1$x1)
+
+## from the plot of selling price of the house to the current taxes
+## we infer that there exists a linear relationship between the variables
+## where y is dependent and x1 is independent
+
+model_simple=lm(test1$y~test1$x1)
+summary(model_simple)
+
+## Our model here is
+## Y_fit=    13.320  +  3.324 * x1
+## here in our fitted model
+## B0 is our intercept which indicates when x1 is 0 y is 13.320
+## B1 is our slope indicates for every increase in 1 unit in x1 y increases by 3.324 unit.
+```
+
+```{r}
+## 1b
+## ploting a scatter plot to see the relationshi between the variables
+plot(test1$y,test1$x2)
+
+## from the plot of selling price of the house to the age of the house
+## we infer that there exists a linear relationship between the variables but not that strong
+## where y is dependent and x2 is independent
+
+model_simple2=lm(test1$y~test1$x2)
+summary(model_simple2)
+
+## Our model here is
+## Y_fit=    40.9958  -0.1704 * x2
+## here in our fitted model
+## B0 is our intercept which indicates when x2 is 0 y is 40.9958
+## B1 is our slope indicates for every increase in 1 unit in x2 y decreases by 0.1704 unit.
+```
+```{r}
+## 1c
+
+## the adjusted R squared value of the model in 1a is having a adjusted r squarred value of 0.7568
+## which is greater than the value of model in 1b that is 0.05375
+
+
+## hence model 1 is a better fit.
+```
+
+```{r}
+## 1d
+
+## Multiple linear regression
+#scatter plot
+attach(test1)
+pairs(test1[1:3])
+library(Hmisc)
+rcorr(as.matrix(test1))
+
+## INTERPRETATION:
+## From the scatter plot we can see that there exists a linear relationship between the dependent variable y and independent variable x1 and x2.
+## form the correlation matrix we can see that there exits a weak correlation between x1 and x2. 
+
+model_m <- lm(test1$y~ test1$x1+test1$x2)
+model_m
+summary(model_m)
+
+## Interpretation:
+## 1. the MLR is:
+## y = 13.834472 + 3.292349x1 + -0.008254x2
+## 2.  the Adjusted R square is 0.7455.
+
+##the R square value in model 1 was 0.75. since adding an extra variable x2 in the model, the R square value gets decreased and hence we will not consider this variable for predicting the response variable.
+```
+
+```{r}
+## 1e
+
+# since model 1 is the best model
+confint(model_simple)
+
+## the confidence interval are
+```
+
